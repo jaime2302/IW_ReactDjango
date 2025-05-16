@@ -33,3 +33,22 @@
 .result-block-container .result-block {
   opacity: 1;
 }
+
+/* Estilos para la vista de Personal */
+.personal-view {
+  padding: 20px;
+}
+
+.personal-view h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .personal-table table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

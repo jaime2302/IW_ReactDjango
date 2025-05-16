@@ -1,12 +1,15 @@
 import React from "react";
 
 const Footer = () => (
-  <footer className="bg-light p-3 text-center">
-    <div className="logo" />
-    <p>
-      Sample project provided by <a href="https://auth0.com">Auth0</a>
-    </p>
-  </footer>
+  <footer className="copyright-footer">
+      <div className="container">
+        <p>&copy; {new Date().getFullYear()} Zara Management System. Todos los derechos reservados.</p>
+        <p className="legal-links">
+          <a href="/privacy">Política de Privacidad</a> | 
+          <a href="/terms">Términos de Servicio</a>
+        </p>
+      </div>
+    </footer>
 );
 
 export default Footer;

@@ -7,8 +7,8 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = Producto 
         fields = ('pk', 'idUser', 'name', 'description', 'price')
         
-        def create(self, validated_data):
-            request = self.context.get('request')
-            if request and hasattr(request, 'user') and request.user and request.user.is_authenticated:
-                validated_data['idUser'] = request.user
-                return super().create(validated_data)
+    def create(self, validated_data):
+        request = self.context.get('request')
+        if request and hasattr(request, 'user') and request.user and request.user.is_authenticated:
+            validated_data['idUser'] = request.user
+            return super().create(validated_data)

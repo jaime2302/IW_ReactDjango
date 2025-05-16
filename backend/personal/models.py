@@ -9,4 +9,4 @@ class Personal(models.Model):
     tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE, related_name='empleados')
 
     def __str__(self):
-        return f"{self.nombre} ({self.dni})"
+        return f"{self.nombre} ({self.dni}) - {self.tienda.nombre}"

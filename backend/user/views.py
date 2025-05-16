@@ -1,41 +1,41 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+from rest_framework.decorators import authentication_classes
 from rest_framework.decorators import api_view
 from rest_framework import status
+
+from user.auth_backends import Auth0JWTAuthentication
 
 from .models import User
 from .serializers import *
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
+@authentication_classes([Auth0JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def Users_list(request):
     if request.method == 'GET':
-        data = User.objects.all()
-
-        serializer = UserSerializer(data, context={'request': request}, many=True)
-
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 @api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def Users_detail(request, pk):
-    try:
-        User = User.objects.get(pk=pk)
-    except User.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    user_obj = get_object_or_404(User, pk=pk)
+    
+    # Solo el propio usuario o un admin puede modificar/eliminar
+    if request.user != user_obj and not request.user.is_staff:
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
     if request.method == 'PUT':
-        serializer = UserSerializer(User, data=request.data,context={'request': request})
+        serializer = UserSerializer(user_obj, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        User.delete()
+        user_obj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

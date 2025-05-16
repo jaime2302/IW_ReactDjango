@@ -12,3 +12,53 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* Layout general */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header con logo */
+.app-header {
+  background-color: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+.logo-container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.app-logo {
+  height: 60px; /* Ajusta según tu logo */
+  width: auto;
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+/* Navbar personalizada */
+.navbar {
+  padding: 0.5rem 1rem;
+}
+
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: bold;
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}

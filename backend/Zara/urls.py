@@ -38,18 +38,18 @@ urlpatterns = [
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('admin/', admin.site.urls),
     # Usuario
-    re_path(r'user/$', userViews.Users_list),
-    re_path(r'user/([0-9])$', userViews.Users_detail),
+    path(r'user/', userViews.Users_list),
+    path(r'user/<int:pk>', userViews.Users_detail),
     # Productos
-    re_path(r'producto/', productoViews.producto_list),
-    re_path(r'producto/([0-9])$', productoViews.producto_detail),
+    path(r'producto/', productoViews.producto_list),
+    path(r'producto/<int:pk>', productoViews.producto_detail),
     # Sedes
-    re_path(r'sede/', sedeViews.sede_list),
-    re_path(r'sede/([0-9])$', sedeViews.sede_detail),
+    path(r'sede/', sedeViews.sede_list),
+    path(r'sede/<int:pk>', sedeViews.sede_detail),
     # Tienda
-    re_path(r'tienda/', tiendaViews.tienda_list),
-    re_path(r'tienda/([0-9])$', tiendaViews.tienda_detail),
+    path(r'tienda/', tiendaViews.tienda_list),
+    path(r'tienda/<int:pk>', tiendaViews.tienda_detail),
     # Personal
-    re_path('personal/', personalViews.personal_list),
-    re_path('personal/([0-9])$', personalViews.personal_detail),
+    path(r'personal/', personalViews.personal_list),
+    path(r'personal/<int:pk>/', personalViews.personal_detail),
 ]
