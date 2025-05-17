@@ -89,7 +89,8 @@ const PersonalView = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          ...formData,
+          nombre: formData.nombre,
+          dni: formData.dni,
           tienda: parseInt(formData.tienda),
         }),
       });

@@ -9,7 +9,7 @@ const PersonalForm = ({ personal, stores, onSubmit, onCancel }) => {
     if (personal) {
       setValue('nombre', personal.nombre);
       setValue('dni', personal.dni);
-      setValue('tienda', personal.tienda?.pk || '');
+      setValue('tienda', personal.tienda);
     } else {
       setValue('nombre', '');
       setValue('dni', '');
