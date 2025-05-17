@@ -1,29 +1,25 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
 from rest_framework import status
 
 from .models import Producto
 from .serializers import ProductoSerializer
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
 def producto_list(request):
     if request.method == 'GET':
-        data = Producto.objects.all()
-        serializer = ProductoSerializer(data, context={'request': request}, many=True)
+        productos = Producto.objects.all()
+        serializer = ProductoSerializer(productos, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
         serializer = ProductoSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(idUser=request.user)
+            serializer.save()  # Guarda el producto en la base de datos
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
 def producto_detail(request, pk):
     try:
         producto = Producto.objects.get(pk=pk)
@@ -35,10 +31,10 @@ def producto_detail(request, pk):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = ProductoSerializer(producto, data=request.data, context={'request': request})
+        serializer = ProductoSerializer(producto, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)  # Mejor que 204 vacío
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':

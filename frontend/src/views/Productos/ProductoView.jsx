@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import ProductosList from './ProductosList';
-import ProductosForm from './ProductosForm';
+import ProductoList from './ProductoList';
+import ProductoForm from './ProductoForm';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 
-const ProductosView = () => {
+const ProductoView = () => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [productos, setProductos] = useState([]);
-  const [tiendas, setTiendas] = useState([]);
   const [currentProducto, setCurrentProducto] = useState(null);
+  const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -17,13 +17,14 @@ const ProductosView = () => {
   useEffect(() => {
     if (isAuthenticated) {
       fetchProductos();
-      fetchTiendas();
+      fetchStores();
     }
   }, [isAuthenticated]);
 
   const fetchProductos = async () => {
     try {
       const token = await getAccessTokenSilently();
+      console.log(token);
       const response = await fetch('http://localhost:8000/producto/', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -41,7 +42,7 @@ const ProductosView = () => {
     }
   };
 
-  const fetchTiendas = async () => {
+  const fetchStores = async () => {
     try {
       const token = await getAccessTokenSilently();
       const response = await fetch('http://localhost:8000/tienda/', {
@@ -53,7 +54,7 @@ const ProductosView = () => {
       if (!response.ok) throw new Error('Error al obtener tiendas');
 
       const data = await response.json();
-      setTiendas(data);
+      setStores(data);
     } catch (err) {
       setError(err.message);
     }
@@ -88,17 +89,12 @@ const ProductosView = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          name: formData.name,
-          description: formData.description,
-          price: parseFloat(formData.price),
-          tienda: parseInt(formData.tienda),
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Error al guardar los datos');
+        const errorText = await response.text();
+        throw new Error(errorText || 'Error al guardar los datos');
       }
 
       fetchProductos();
@@ -111,10 +107,6 @@ const ProductosView = () => {
 
   const handleDelete = async (id) => {
     try {
-      if (!window.confirm('¿Estás seguro de eliminar este producto?')) {
-        return;
-      }
-
       const token = await getAccessTokenSilently();
       const response = await fetch(`http://localhost:8000/producto/${id}`, {
         method: 'DELETE',
@@ -135,40 +127,38 @@ const ProductosView = () => {
   if (error) return <Error message={error} />;
 
   return (
-    <div className="productos-view">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Gestión de Productos</h2>
-        {!isEditing && (
+    <div className="container mt-4">
+      <h2>Gestión de Productos</h2>
+
+      {isEditing ? (
+        <ProductoForm
+          producto={currentProducto}
+          stores={stores}
+          onSubmit={handleSubmit}
+          onCancel={handleCancel}
+        />
+      ) : (
+        <>
           <button
-            className="btn btn-primary"
+            className="btn btn-primary mb-3"
             onClick={() => {
               setCurrentProducto(null);
               setIsEditing(true);
             }}
           >
-            <i className="fas fa-plus me-2"></i>
-            Nuevo Producto
+            Agregar Nuevo Producto
           </button>
-        )}
-      </div>
 
-      {isEditing ? (
-        <ProductosForm
-          producto={currentProducto}
-          tiendas={tiendas}
-          onSubmit={handleSubmit}
-          onCancel={handleCancel}
-        />
-      ) : (
-        <ProductosList
-          productos={productos}
-          tiendas={tiendas}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
+          <ProductoList
+            productos={productos}
+            stores={stores}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </>
       )}
     </div>
   );
 };
 
-export default ProductosView;
+export default ProductoView;

@@ -1,12 +1,6 @@
 import React from 'react';
 
-const ProductosTable = ({ productos, tiendas, onEdit, onDelete }) => {
-  // Función para obtener el nombre de la tienda basado en el ID
-  const getTiendaNombre = (tiendaId) => {
-    const tienda = tiendas.find(t => t.pk === tiendaId);
-    return tienda ? `${tienda.ciudad} - ${tienda.direccion}` : 'Desconocida';
-  };
-
+const ProductoTable = ({ productos, onEdit, onDelete }) => {
   return (
     <div className="table-responsive">
       <table className="table table-striped table-hover">
@@ -24,8 +18,8 @@ const ProductosTable = ({ productos, tiendas, onEdit, onDelete }) => {
             <tr key={producto.pk}>
               <td>{producto.name}</td>
               <td>{producto.description || '-'}</td>
-              <td>${producto.price.toFixed(2)}</td>
-              <td>{getTiendaNombre(producto.tienda)}</td>
+              <td>{producto.price.toFixed(2)}€</td>
+              <td>{producto.tiendaNombre}</td>
               <td>
                 <div className="d-flex gap-2">
                   <button 
@@ -54,4 +48,4 @@ const ProductosTable = ({ productos, tiendas, onEdit, onDelete }) => {
   );
 };
 
-export default ProductosTable;
+export default ProductoTable;

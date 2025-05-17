@@ -130,7 +130,7 @@ const PersonalView = () => {
   if (error) return <Error />;
 
   return (
-    <div className="personal-view">
+    <div className="container mt-4">
       <h2>Gestión de Personal</h2>
 
       {isEditing ? (

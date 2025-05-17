@@ -141,3 +141,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
+# Y si usas credenciales (como cookies o headers de autenticación)
+CORS_ALLOW_CREDENTIALS = True

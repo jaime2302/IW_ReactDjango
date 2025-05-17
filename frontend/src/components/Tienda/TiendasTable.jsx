@@ -4,14 +4,12 @@ const TiendaTable = ({ tiendas, onEdit, onDelete }) => {
   return (
     <div className="table-responsive">
       <table className="table table-striped table-hover">
-        <thead className="table-dark">
           <tr>
             <th>Ciudad</th>
             <th>Dirección</th>
             <th>CP</th>
             <th>Acciones</th>
           </tr>
-        </thead>
         <tbody>
           {tiendas.length > 0 ? (
             tiendas.map(tienda => (
