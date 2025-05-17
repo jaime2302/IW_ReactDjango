@@ -67,6 +67,27 @@ const NavBar = () => {
                         Personal
                       </NavLink>
                     </li>
+
+                    <li className="nav-item">
+                      <NavLink 
+                        to="/producto" 
+                        className={({ isActive }) => 
+                          `nav-link ${isActive ? 'active' : ''}`
+                        }
+                      >
+                        Producto
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink 
+                        to="/tienda" 
+                        className={({ isActive }) => 
+                          `nav-link ${isActive ? 'active' : ''}`
+                        }
+                      >
+                        Tienda
+                      </NavLink>
+                    </li>
                   </>
                 )}
               </>

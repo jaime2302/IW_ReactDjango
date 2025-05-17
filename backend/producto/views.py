@@ -23,6 +23,7 @@ def producto_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def producto_detail(request, pk):
     try:
         producto = Producto.objects.get(pk=pk)
@@ -43,4 +44,3 @@ def producto_detail(request, pk):
     elif request.method == 'DELETE':
         producto.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-

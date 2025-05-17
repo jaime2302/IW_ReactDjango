@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import Home from "./views/Home";
 import Profile from "./views/Profile";
 import PersonalView from "./views/Personal/PersonalView";
+import ProductosView from "./views/Productos/ProductosView";
+import TiendaView from "./views/Tienda/TiendaView";
 import "./App.css";
 import history from "./utils/history";
 import initFontAwesome from "./utils/initFontAwesome";
@@ -34,6 +36,9 @@ const App = () => {
             <Route path="/" exact component={Home} />
             <Route path="/profile" component={Profile} />
             <Route path="/personal" component={PersonalView} />
+            <Route path="/producto" component={ProductosView} />
+            <Route path="/tienda" component={TiendaView} />
+
           </Switch>
         </Container>
         <Footer/>
