@@ -1,5 +1,4 @@
-import React from "react";
-import { Router, Route, Routes, Navigate } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import { Container } from "reactstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "./components/Loading";
@@ -10,14 +9,13 @@ import Profile from "./views/Profile";
 import PersonalView from "./views/Personal/PersonalView";
 import "./App.css";
 import history from "./utils/history";
-import { getConfig } from "./config";
 import initFontAwesome from "./utils/initFontAwesome";
 import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 
 initFontAwesome();
 
 const App = () => {
-  const { isLoading, error, isAuthenticated } = useAuth0();
+  const { isLoading, error } = useAuth0();
 
   if (error) {
     return <div className="alert alert-danger">Error: {error.message}</div>;
@@ -38,7 +36,7 @@ const App = () => {
             <Route path="/personal" component={PersonalView} />
           </Switch>
         </Container>
-        <Footer />
+        <Footer/>
       </div>
     </Router>
   );

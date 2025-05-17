@@ -72,35 +72,32 @@ const PersonalView = () => {
   const handleSubmit = async (formData) => {
     try {
       const token = await getAccessTokenSilently();
-      let response;
+      let url, method;
 
-      if (isEditing) {
-        response = await fetch(`http://localhost:8000/personal/${currentPersonal.pk}/`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            ...formData,
-            tienda: parseInt(formData.tienda),
-          }),
-        });
+      if (currentPersonal) {
+        url = `http://localhost:8000/personal/${currentPersonal.pk}/`;
+        method = 'PUT';
       } else {
-        response = await fetch('http://localhost:8000/personal/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            ...formData,
-            tienda: parseInt(formData.tienda),
-          }),
-        });
+        url = 'http://localhost:8000/personal/';
+        method = 'POST';
       }
 
-      if (!response.ok) throw new Error('Error al guardar los datos');
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ...formData,
+          tienda: parseInt(formData.tienda),
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error('Error al guardar los datos');
+      }
 
       fetchPersonal();
       setIsEditing(false);
@@ -146,10 +143,14 @@ const PersonalView = () => {
         <>
           <button
             className="btn btn-primary mb-3"
-            onClick={() => setIsEditing(true)}
+            onClick={() => {
+              setCurrentPersonal(null);
+              setIsEditing(true);
+            }}
           >
             Agregar Nuevo Empleado
           </button>
+
           <PersonalList
             personal={personal}
             stores={stores}

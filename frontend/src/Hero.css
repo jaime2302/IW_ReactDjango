@@ -59,6 +59,7 @@
 /* Resto de estilos permanecen igual */
 .main-content {
   padding: 3rem 0;
+  flex-grow: 1;
 }
 
 .features-grid {
@@ -91,7 +92,6 @@
   color: white;
   padding: 2rem 0;
   text-align: center;
-  margin-top: auto;
 }
 
 .copyright-footer p {
