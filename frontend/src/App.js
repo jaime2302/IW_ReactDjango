@@ -9,6 +9,7 @@ import Profile from "./views/Profile";
 import PersonalView from "./views/Personal/PersonalView";
 import ProductoView from "./views/Productos/ProductoView";
 import TiendaView from "./views/Tienda/TiendaView";
+import MarketplaceView from "./views/Marketplace/MarketplaceView";
 import "./App.css";
 import history from "./utils/history";
 import initFontAwesome from "./utils/initFontAwesome";
@@ -38,7 +39,7 @@ const App = () => {
             <Route path="/personal" component={PersonalView} />
             <Route path="/producto" component={ProductoView} />
             <Route path="/tienda" component={TiendaView} />
-
+            <Route path="/marketplace" component={MarketplaceView} />
           </Switch>
         </Container>
         <Footer/>

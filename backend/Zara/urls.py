@@ -52,4 +52,11 @@ urlpatterns = [
     # Personal
     path(r'personal/', personalViews.personal_list),
     path(r'personal/<int:pk>/', personalViews.personal_detail),
+
+    # Marketplace
+    path(r'marketplace/', productoViews.marketplace_list),
+    path(r'marketplace/<int:pk>/reservar', productoViews.reservar_stock),
+    path(r'marketplace/<int:pk>/liberar', productoViews.liberar_stock),
+    path(r'marketplace/confirmar_compra', productoViews.confirmar_compra),
+
 ]

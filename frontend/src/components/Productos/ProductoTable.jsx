@@ -9,6 +9,7 @@ const ProductoTable = ({ productos, onEdit, onDelete }) => {
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Precio</th>
+            <th>Stock</th>
             <th>Tienda</th>
             <th>Acciones</th>
           </tr>
@@ -19,6 +20,7 @@ const ProductoTable = ({ productos, onEdit, onDelete }) => {
               <td>{producto.name}</td>
               <td>{producto.description || '-'}</td>
               <td>{producto.price.toFixed(2)}€</td>
+              <td>{producto.stock}</td>
               <td>{producto.tiendaNombre}</td>
               <td>
                 <div className="d-flex gap-2">

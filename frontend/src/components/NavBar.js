@@ -6,6 +6,7 @@ import logo from '../assets/logo-zara.png'; // Asegúrate de tener el logo en es
 const NavBar = () => {
   const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0();
   const isAdmin = user && user['www.zara.example.com/roles']?.includes("admin");
+  const isCliente = user && user['www.zara.example.com/roles']?.includes("cliente");
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -89,6 +90,18 @@ const NavBar = () => {
                       </NavLink>
                     </li>
                   </>
+                )}
+                {isCliente && (
+                  <li className="nav-item">
+                    <NavLink 
+                      to="/marketplace" 
+                      className={({ isActive }) => 
+                        `nav-link ${isActive ? 'active' : ''}`
+                      }
+                    >
+                      Marketplace
+                    </NavLink>
+                  </li>
                 )}
               </>
             )}

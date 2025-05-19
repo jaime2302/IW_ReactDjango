@@ -10,6 +10,7 @@ const ProductoForm = ({ producto, stores, onSubmit, onCancel }) => {
       setValue('name', producto.name);
       setValue('description', producto.description);
       setValue('price', producto.price);
+      setValue('stock', producto.stock);
       setValue('tienda', producto.tienda);
     } else {
       setValue('name', '');
@@ -24,6 +25,7 @@ const ProductoForm = ({ producto, stores, onSubmit, onCancel }) => {
       const payload = { 
         ...data, 
         tienda: parseInt(data.tienda, 10),
+        stock: parseInt(data.stock, 10),
         price: parseFloat(data.price)
       };
       onSubmit(payload);
@@ -73,6 +75,18 @@ const ProductoForm = ({ producto, stores, onSubmit, onCancel }) => {
               step="0.01"
               required
               {...register('price')}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="stock" className="form-label">Stock</label>
+            <input
+              type="number"
+              className="form-control"
+              id="stock"
+              min="0"
+              required
+              {...register('stock')}
             />
           </div>
 

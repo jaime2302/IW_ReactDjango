@@ -1,0 +1,31 @@
+/* Marketplace.css */
+.marketplace-view {
+  padding: 20px;
+}
+
+.marketplace-view .card {
+  border: none;
+  border-radius: 10px;
+}
+
+.marketplace-view .table {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.marketplace-view .table th {
+  background-color: #343a40;
+  color: white;
+}
+
+.marketplace-view .badge {
+  font-size: 0.9em;
+  padding: 0.5em 0.75em;
+}
+
+.marketplace-view .list-group-item {
+  transition: all 0.3s ease;
+}
+
+.marketplace-view .list-group-item:hover {
+  background-color: #f8f9fa;
+}
