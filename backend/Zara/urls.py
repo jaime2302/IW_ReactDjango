@@ -22,7 +22,6 @@ from user import views as userViews
 from tienda import views as tiendaViews
 from personal import views as personalViews
 from producto import views as productoViews
-from sede import views as sedeViews
 
 from drf_spectacular.views import SpectacularRedocView, SpectacularSwaggerView, SpectacularAPIView
 
@@ -43,9 +42,6 @@ urlpatterns = [
     # Productos
     path(r'producto/', productoViews.producto_list),
     path(r'producto/<int:pk>', productoViews.producto_detail),
-    # Sedes
-    path(r'sede/', sedeViews.sede_list),
-    path(r'sede/<int:pk>', sedeViews.sede_detail),
     # Tienda
     path(r'tienda/', tiendaViews.tienda_list),
     path(r'tienda/<int:pk>', tiendaViews.tienda_detail),
